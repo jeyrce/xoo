@@ -1,0 +1,9 @@
+.idea/
+*.swap
+*.swp
+*.log
+*.tmp
+Dockerfile
+Makefile
+media/
+db.sqlite3
