@@ -1,4 +1,4 @@
-FROM python:3.10.6-alpine3.16
+FROM python:3.10.6-slim
 WORKDIR /xoo
 LABEL Author=Jeyrce<jeyrce@gmail.com> \
       PoweredBy=https://github.com/jeyrce/xoo
@@ -7,12 +7,10 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     pip install -r requirements.txt \
     -i https://mirrors.aliyun.com/pypi/simple/  \
     --trusted-host mirrors.aliyun.com \
-    --no-cache-dir && \
-    python /xoo/manage.py collectstatic
+    --no-cache-dir
 
-VOLUME /xoo/media/ /xoo/xoo/settings.py
-ENV AUTH_USERNAME='xoo'
-ENV AUTH_PASSWORD='一船清梦压星河'
+VOLUME /var/lib/xoo/media/ /xoo/db.sqlite3 /xoo/xoo/settings.py
+ENV XOO_AES_KEY='青青子衿悠悠我心'
 
 EXPOSE 80
 ENTRYPOINT [\

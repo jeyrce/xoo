@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-g2*$_1d=b_yms&jh^zm_)jc+o)b12*+a^tribj3#w7#p8))0r)'
 
-# 16 位aes密钥，请自行妥善保存
+# aes密钥，请自行妥善保存(可以是8个汉字或者16英文)
 XOO_AES_KEY = os.environ.get('XOO_AES_KEY', 'abcdefghijklmnop')
 
 # SECURITY WARNING: don't run with debug turned on in production!

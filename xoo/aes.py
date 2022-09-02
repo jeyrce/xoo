@@ -31,3 +31,5 @@ if __name__ == '__main__':
         print(test, '->', x, len(x))
         y = decrypt(x)
         print(y)
+    key = '物华天宝人杰地灵'
+    print(decrypt(encrypt("老子服了这个老六", key), key))
