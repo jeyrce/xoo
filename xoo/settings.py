@@ -23,6 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-g2*$_1d=b_yms&jh^zm_)jc+o)b12*+a^tribj3#w7#p8))0r)'
 
+# 16 位aes密钥，请自行妥善保存
+XOO_AES_KEY = os.environ.get('XOO_AES_KEY', 'abcdefghijklmnop')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -30,6 +33,7 @@ ALLOWED_HOSTS = [
     'xoo.site',
     'xoo',
     '127.0.0.1',
+    '*.xoo.site',
 ]
 
 # Application definition
@@ -42,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor_uploader',
+    'xoo',
 ]
 
 MIDDLEWARE = [
@@ -139,8 +145,14 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-AUTH_USERNAME = os.environ.get('AUTH_USERNAME', 'xoo')
-AUTH_PASSWORD = os.environ.get('AUTH_PASSWORD', '一船清梦压星河')
 AUTHENTICATION_BACKENDS = [
     'xoo.auth.AuthBackend'
 ]
+
+# simpleui 配置: https://simpleui.72wo.com/docs/simpleui/QUICK.html
+SIMPLEUI_LOGIN_PARTICLES = False
+SIMPLEUI_ANALYSIS = False
+SIMPLEUI_STATIC_OFFLINE = True
+
+# ck_editor配置
+CKEDITOR_UPLOAD_PATH = "ckeditor/"

@@ -14,11 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.contrib.staticfiles.views import serve
+from django.urls import path, include, re_path
 
 from xoo import views
+from xoo.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('', views.IndexView.as_view()),
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    re_path('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]
