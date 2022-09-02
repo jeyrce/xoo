@@ -20,6 +20,8 @@ from django.urls import path, include, re_path
 from xoo import views
 from xoo.settings import MEDIA_ROOT
 
+admin.autodiscover()
+
 urlpatterns = [
     path('', views.IndexView.as_view()),
     path('admin/', admin.site.urls),
