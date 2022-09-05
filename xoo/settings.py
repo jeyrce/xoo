@@ -166,3 +166,6 @@ QINIU_SK = 'xoo.site'
 QINIU_BUCKET = 'xoo'
 QINIU_BASE_URL = 'http://oss.xoo.site/xoo/'
 QINIU_DELETE_AFTER_DAYS = 7
+
+# 前台页面直接兔小巢接入
+TXC_URL = 'https://support.qq.com/product/428754'

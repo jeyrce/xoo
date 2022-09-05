@@ -16,14 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.staticfiles.views import serve
 from django.urls import path, include, re_path
+from django.shortcuts import redirect
 
 from xoo import views
-from xoo.settings import MEDIA_ROOT
+from xoo.settings import MEDIA_ROOT, TXC_URL
 
 admin.autodiscover()
 
 urlpatterns = [
-    path('', views.IndexView.as_view()),
+    path('', redirect(TXC_URL)),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     re_path('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
