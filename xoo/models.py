@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 from xoo import aes
+from xoo.storage import QiNiuStorage
 
 UserModel = get_user_model()
 normal_uuid = shortuuid.ShortUUID(string.digits + string.ascii_lowercase)
@@ -26,12 +27,12 @@ class MetaModel(models.Model):
 # 建档立卡: 客户资料, 用于后期进行合作挖掘
 class Account(MetaModel):
     username = models.CharField(max_length=32, unique=True, verbose_name='客户称呼', null=False, blank=False)
-    _mobile = models.CharField(max_length=64, unique=True, verbose_name='手机', null=True, blank=True)  # 需要脱敏保存
+    mobile = models.CharField(max_length=64, unique=True, verbose_name='手机', null=True, blank=True)  # 需要脱敏保存
     email = models.EmailField(verbose_name='邮箱', blank=True, null=True)
-    _wechat = models.CharField(verbose_name='微信', max_length=64, null=True, blank=True)
+    wechat = models.CharField(verbose_name='微信', max_length=64, null=True, blank=True)
     qq = models.CharField(verbose_name='QQ', max_length=12, null=True, blank=True)
     git = models.URLField(verbose_name='git账户', null=True, blank=True)
-    _id_card = models.CharField(verbose_name='身份证', null=True, blank=True, max_length=64)  # 需要脱敏保存
+    id_card = models.CharField(verbose_name='身份证', null=True, blank=True, max_length=64)  # 需要脱敏保存
     annotation = models.TextField(verbose_name='备注', null=True, blank=True)
     source = models.CharField(verbose_name='客户来源', max_length=64, null=True, blank=True)
 
@@ -50,27 +51,6 @@ class Account(MetaModel):
     # 客户订单数量
     def orders(self):
         return len(self.projetcs)
-
-    # 明文电话号码
-    def mobile(self):
-        try:
-            return aes.decrypt(self._mobile)
-        except:
-            return "188****8888"
-
-    # 明文微信号码
-    def wechat(self):
-        try:
-            return aes.decrypt(self._wechat)
-        except:
-            return ''
-
-    # 明文身份证
-    def id_card(self):
-        try:
-            return aes.decrypt(self._id_card)
-        except:
-            return ""
 
 
 # 文件清单：关联需求文件等
@@ -96,10 +76,6 @@ class Project(MetaModel):
     account = models.ForeignKey(to=Account, on_delete=models.CASCADE, related_name='projects', null=True, blank=True,
                                 verbose_name='客户')
     detail = RichTextField(verbose_name='详情', blank=True, null=True)
-    mobile = models.CharField(max_length=11, verbose_name='联系电话', blank=True, null=True, unique=True)
-    contact = models.CharField(max_length=32, verbose_name='联系人', blank=True, null=True)
-    email = models.EmailField(verbose_name='联系邮箱', blank=True, null=True)
-    wechat = models.CharField(verbose_name='微信号', max_length=32, blank=True, null=True)
     days = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='工时(天)')
     image_hub = models.URLField(verbose_name='镜像仓库', blank=True, null=True)
     code_hub = models.URLField(verbose_name='代码仓库', blank=True, null=True)
@@ -129,7 +105,7 @@ class Ticket(MetaModel):
     number = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='金额', default=0)
     annotation = models.CharField(max_length=64, verbose_name='备注', null=True, blank=True)
     validate_code = models.CharField(max_length=18, verbose_name='核销码', null=True, blank=True)
-    validated_at = models.DateTimeField(verbose_name='核销时间', null=True)
+    validated_at = models.DateTimeField(verbose_name='核销时间', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = verbose_name = '收据'

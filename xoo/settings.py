@@ -157,3 +157,12 @@ SIMPLEUI_STATIC_OFFLINE = True
 
 # ck_editor配置
 CKEDITOR_UPLOAD_PATH = "ckeditor/"
+
+# 七牛云存储
+DEFAULT_FILE_STORAGE = 'xoo.storage.QiNiuStorage'
+
+QINIU_AK = 'xoo.site'
+QINIU_SK = 'xoo.site'
+QINIU_BUCKET = 'xoo'
+QINIU_BASE_URL = 'http://oss.xoo.site/xoo/'
+QINIU_DELETE_AFTER_DAYS = 7
