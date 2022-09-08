@@ -9,8 +9,11 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     --trusted-host mirrors.aliyun.com \
     --no-cache-dir
 
-VOLUME /var/lib/xoo/media/ /xoo/db.sqlite3 /xoo/xoo/settings.py
-ENV XOO_AES_KEY='青青子衿悠悠我心'
+VOLUME [\
+    "/var/lib/xoo/media/", \
+    "/xoo/db.sqlite3", \
+    "/xoo/xoo/settings.py" \
+]
 
 EXPOSE 80
 ENTRYPOINT [\

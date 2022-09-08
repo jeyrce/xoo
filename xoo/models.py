@@ -48,9 +48,13 @@ class Account(MetaModel):
     def amount(self):
         return sum([ticket.number for ticket in self.tickets])
 
+    amount.short_description = '消费金额'
+
     # 客户订单数量
     def orders(self):
         return len(self.projetcs)
+
+    orders.short_description = '订单数量'
 
 
 # 文件清单：关联需求文件等
@@ -95,6 +99,8 @@ class Project(MetaModel):
     def amount(self):
         return sum([ticket.number for ticket in self.tickets])
 
+    amount.short_description = '实际收益'
+
 
 # 收款记录(账本): 支付宝红包口令即9位uuid
 class Ticket(MetaModel):
@@ -105,7 +111,6 @@ class Ticket(MetaModel):
     number = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='金额', default=0)
     annotation = models.CharField(max_length=64, verbose_name='备注', null=True, blank=True)
     validate_code = models.CharField(max_length=18, verbose_name='核销码', null=True, blank=True)
-    validated_at = models.DateTimeField(verbose_name='核销时间', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = verbose_name = '收据'
